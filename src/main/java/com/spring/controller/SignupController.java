@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.model.Person;
 
-//@RequestMapping(value = "/signup")
 @Controller
 @Scope("session")
 public class SignupController {
@@ -96,7 +95,7 @@ public class SignupController {
 			request.getSession().setAttribute("persons", persons);
 			request.getSession().setAttribute("currentPerson", null);
 
-			return new ModelAndView("redirect:/main");
+			return new ModelAndView("redirect:/");
 		}
 
 		request.getSession().setAttribute("error", "Unable to save person");

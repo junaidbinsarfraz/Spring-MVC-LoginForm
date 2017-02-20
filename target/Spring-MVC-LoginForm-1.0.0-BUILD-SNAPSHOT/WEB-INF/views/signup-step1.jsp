@@ -25,7 +25,7 @@
 					<td><input type="submit" value="Submit" /></td>
 				</tr>
 			</table>
-			<div style="color: red">${error}</div>
+			<div style="color: red">${sessionScope.error} </div>
 
 		</div>
 	</form:form>
