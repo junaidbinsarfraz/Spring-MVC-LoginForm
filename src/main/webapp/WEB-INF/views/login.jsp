@@ -13,19 +13,15 @@
 		<div align="center">
 			<table>
 				<tr>
-					<td>User Name</td>
-					<td><input type="text" name="userName" /></td>
-				</tr>
-				<tr>
-					<td>Password</td>
-					<td><input type="password" name="password" /></td>
+					<td>${question}</td>
+					<td><input type="text" name="answer" /></td>
 				</tr>
 				<tr>
 					<td></td>
 					<td><input type="submit" value="Submit" /></td>
 				</tr>
 			</table>
-			<div style="color: red">${error}</div>
+			<div style="color: red">${securityError}</div>
 
 		</div>
 	</form:form>

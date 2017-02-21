@@ -28,6 +28,7 @@ public class SignupController {
 	public ModelAndView step1(HttpServletRequest request, Model model, @ModelAttribute("Person") Person person) {
 
 		request.getSession().setAttribute("error", "");
+		request.getSession().setAttribute("loginError", "");
 
 		if (person != null) {
 			// Check for username
@@ -37,9 +38,9 @@ public class SignupController {
 				persons = new HashMap<String, Person>();
 			}
 
-			if (person.getUserName() == null || person.getUserName().isEmpty()) {
+			if (person.getUserName() == null || person.getUserName().isEmpty() || person.getDob() == null || person.getDob().isEmpty()) {
 				// Error
-				request.getSession().setAttribute("error", "Username cannot be null");
+				request.getSession().setAttribute("error", "All fields are required");
 				return new ModelAndView("redirect:/signup-step1");
 			}
 
@@ -76,8 +77,8 @@ public class SignupController {
 			return new ModelAndView("redirect:/signup-step1");
 		}
 
-		if (person.getAge() == null || person.getAge().isEmpty() || person.getColor() == null || person.getColor().isEmpty()
-				|| person.getPetName() == null || person.getPetName().isEmpty()) {
+		if (person.getAnswer1() == null || person.getAnswer1().isEmpty() || person.getAnswer2() == null || person.getAnswer2().isEmpty()
+				|| person.getAnswer3() == null || person.getAnswer3().isEmpty()) {
 			request.getSession().setAttribute("error", "All fields are required");
 			return new ModelAndView("redirect:/signup-step2");
 		}
@@ -88,10 +89,13 @@ public class SignupController {
 		Person oldPerson = persons.get(currentPerson.getUserName());
 
 		if (oldPerson != null) {
-			oldPerson.setAge(person.getAge());
-			oldPerson.setColor(person.getColor());
-			oldPerson.setPetName(person.getPetName());
-
+			oldPerson.setAnswer1(person.getAnswer1());
+			oldPerson.setAnswer2(person.getAnswer2());
+			oldPerson.setAnswer3(person.getAnswer3());
+			oldPerson.setQuestion1(person.getQuestion1());
+			oldPerson.setQuestion2(person.getQuestion2());
+			oldPerson.setQuestion3(person.getQuestion3());
+			
 			request.getSession().setAttribute("persons", persons);
 			request.getSession().setAttribute("currentPerson", null);
 
