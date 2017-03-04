@@ -15,15 +15,37 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.model.Person;
 
+/**
+ * The SignupController class is use to save the user and do signup
+ */
 @Controller
 @Scope("session")
 public class SignupController {
 
+	/**
+	 * The init() method is use to initialize the signup process
+	 * 
+	 * @param model
+	 *            Provide the view
+	 * @return the page to be redirected
+	 */
 	@RequestMapping(value = "/signup-step1", method = RequestMethod.GET)
 	public String init(Model model) {
 		return "/signup-step1";
 	}
 
+	/**
+	 * The step1() method is use to process the step1 data and check is username
+	 * is already exists or not
+	 * 
+	 * @param request
+	 *            has all the request attributes
+	 * @param model
+	 *            has view data
+	 * @param person
+	 *            has all info of persono
+	 * @return step2 is username is unique else show error on step1
+	 */
 	@RequestMapping(value = "/signup-step1", method = RequestMethod.POST)
 	public ModelAndView step1(HttpServletRequest request, Model model, @ModelAttribute("Person") Person person) {
 
@@ -38,7 +60,8 @@ public class SignupController {
 				persons = new HashMap<String, Person>();
 			}
 
-			if (person.getUserName() == null || person.getUserName().isEmpty() || person.getDob() == null || person.getDob().isEmpty()) {
+			if (person.getUserName() == null || person.getUserName().isEmpty() || person.getDob() == null
+					|| person.getDob().isEmpty()) {
 				// Error
 				request.getSession().setAttribute("error", "All fields are required");
 				return new ModelAndView("redirect:/signup-step1");
@@ -61,11 +84,30 @@ public class SignupController {
 		return new ModelAndView("redirect:/signup-step1");
 	}
 
+	/**
+	 * The init2() method is use to initialize step2 of signup process
+	 * 
+	 * @param model
+	 *            view data
+	 * @return redirect to step2
+	 */
 	@RequestMapping(value = "/signup-step2", method = RequestMethod.GET)
 	public String init2(Model model) {
 		return "/signup-step2";
 	}
 
+	/**
+	 * The step2() method is use to process step2 data i.e. questions.
+	 * 
+	 * @param request
+	 *            has all the request attributes
+	 * @param model
+	 *            has view data
+	 * @param person
+	 *            has all info of persono
+	 * @return to main page if questions are saved else return to step2 with
+	 *         error
+	 */
 	@RequestMapping(value = "/signup-step2", method = RequestMethod.POST)
 	public ModelAndView step2(HttpServletRequest request, Model model, @ModelAttribute("Person") Person person) {
 
@@ -77,8 +119,8 @@ public class SignupController {
 			return new ModelAndView("redirect:/signup-step1");
 		}
 
-		if (person.getAnswer1() == null || person.getAnswer1().isEmpty() || person.getAnswer2() == null || person.getAnswer2().isEmpty()
-				|| person.getAnswer3() == null || person.getAnswer3().isEmpty()) {
+		if (person.getAnswer1() == null || person.getAnswer1().isEmpty() || person.getAnswer2() == null
+				|| person.getAnswer2().isEmpty() || person.getAnswer3() == null || person.getAnswer3().isEmpty()) {
 			request.getSession().setAttribute("error", "All fields are required");
 			return new ModelAndView("redirect:/signup-step2");
 		}
@@ -95,7 +137,7 @@ public class SignupController {
 			oldPerson.setQuestion1(person.getQuestion1());
 			oldPerson.setQuestion2(person.getQuestion2());
 			oldPerson.setQuestion3(person.getQuestion3());
-			
+
 			request.getSession().setAttribute("persons", persons);
 			request.getSession().setAttribute("currentPerson", null);
 

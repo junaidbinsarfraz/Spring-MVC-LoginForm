@@ -1,5 +1,8 @@
 package com.spring.model;
 
+/**
+ * The Person class is use to store person information
+ */
 public class Person {
 
 	private String userName;
