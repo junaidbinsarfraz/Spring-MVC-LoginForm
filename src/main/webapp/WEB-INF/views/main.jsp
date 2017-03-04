@@ -20,7 +20,7 @@
 
 		<form:form name="submitForm" method="POST">
 
-			<div align="center">
+			<div id="loginDiv" align="center" style="display: none;">
 				<table>
 					<tr>
 						<td>User Name</td>
@@ -42,10 +42,12 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(document).ready(function() {		
 		$("#dialog-form").dialog({
 			autoOpen : false
 		});
+		
+		$('#loginDiv').show();
 	});
 
 	function openDialog() {
